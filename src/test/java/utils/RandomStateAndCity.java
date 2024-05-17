@@ -1,40 +1,22 @@
 package utils;
 
-import java.util.Objects;
+import java.util.*;
 
-import static utils.RandomUtils.getRandomInt;
+import static utils.RandomUtils.getRandomItemFromArray;
 
 public class RandomStateAndCity {
-
     public String state;
     public String city;
 
     public void getRandomStateAndCity() {
-        String[] states = {"NCR", "Uttar Pradesh", "Haryana", "Rajasthan"};
+        Map<String, String[]> statesAndCities = new HashMap<>();
+        statesAndCities.put("NCR", new String[] {"Delhi", "Gurgaon", "Noida"});
+        statesAndCities.put("Uttar Pradesh", new String[] {"Agra", "Lucknow", "Merrut"});
+        statesAndCities.put("Haryana", new String[] {"Karnal", "Panipat"});
+        statesAndCities.put("Rajasthan", new String[] {"Jaipur", "Jaiselmer"});
+
+        String[] states = statesAndCities.keySet().toArray(new String[0]);
         state = getRandomItemFromArray(states);
-        city = getRandomCityInState(state);
-    }
-
-    public String  getRandomItemFromArray(String[] array) {
-        int index = getRandomInt(0, array.length - 1);
-        return array[index];
-    }
-
-    public String getRandomCityInState(String state) {
-        String[] ncrCities = {"Delhi", "Gurgaon", "Noida"};
-        String[] uttarPradeshCities = {"Agra", "Lucknow", "Merrut"};
-        String[] haryanaCities = {"Karnal", "Panipat"};
-        String[] rajasthanCities = {"Jaipur", "Jaiselmer"};
-
-        if (Objects.equals(state, "NCR")) {
-            city = getRandomItemFromArray(ncrCities);
-        } else if (Objects.equals(state, "Uttar Pradesh")) {
-            city = getRandomItemFromArray(uttarPradeshCities);
-        } else if (Objects.equals(state, "Haryana")) {
-            city = getRandomItemFromArray(haryanaCities);
-        } else if (Objects.equals(state, "Rajasthan")) {
-            city = getRandomItemFromArray(rajasthanCities);
-        }
-        return city;
+        city = getRandomItemFromArray(statesAndCities.get(state));
     }
 }
